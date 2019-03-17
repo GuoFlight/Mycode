@@ -23,9 +23,7 @@
 * [批量重命名.py][批量重命名.py]
 
 ### 给个五星好评吧~
-<img weight="200" height="400" src="http://ww1.sinaimg.cn/large/006vXjpTgy1g1617o75swj30fs0nodhv.jpg" />
-
-<img weight="200" height="400" src="http://ww1.sinaimg.cn/large/006vXjpTgy1g161aqrynlj30u01ao45m.jpg" />
+<img weight="200" height="400" src="http://ww1.sinaimg.cn/large/006vXjpTgy1g1617o75swj30fs0nodhv.jpg" /><img weight="200" height="400" src="http://ww1.sinaimg.cn/large/006vXjpTgy1g161aqrynlj30u01ao45m.jpg" />
 
 ### 或者将[此网页][2345]设置为主页,也可以给我支持哦~
 
