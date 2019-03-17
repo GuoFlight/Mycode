@@ -3,14 +3,14 @@
 你可以通过[点击这里][CSDN]访问我的博客
 
 
-###Linux
-####软件安装脚本
+### Linux
+#### 软件安装脚本
 * [Compose_install][Compose_install]
 * [Docker_install][Docker_install]
 * [MySQL_install][MySQL_install]
 * [Python3_install][Python3_install]
 * [pip_install][pip_install]
-####其他Linux脚本
+#### 其他Linux脚本
 * [.bashrc][.bashrc]
 * [.vimrc][.vimrc]
 * [repos.py][repos.py](一键更换软件源)
@@ -19,15 +19,15 @@
 * [软链接.txt][软链接.txt](常用Linux软连接)
 
 
-###Windows
+### Windows
 * [批量重命名.py][批量重命名.py]
 
-###给个五星好评吧~
+### 给个五星好评吧~
 <img weight="200" height="400" src="http://ww1.sinaimg.cn/large/006vXjpTgy1g1617o75swj30fs0nodhv.jpg" />
 
 <img weight="200" height="400" src="http://ww1.sinaimg.cn/large/006vXjpTgy1g161aqrynlj30u01ao45m.jpg" />
 
-###或者将[此网页][2345]设置为主页,也可以给我支持哦~
+### 或者将[此网页][2345]设置为主页,也可以给我支持哦~
 
 
 
