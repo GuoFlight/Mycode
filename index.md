@@ -3,7 +3,7 @@
 你可以通过[点击这里][CSDN]访问我的博客
 
 
-### <center>Linux</center>
+## <center>Linux</center>
 #### 软件安装脚本
 * [Compose_install][Compose_install]
 * [Docker_install][Docker_install]
@@ -21,7 +21,7 @@
 * [软链接.txt][软链接.txt](常用Linux软连接)
 
 
-### <center>Windows</center>
+## <center>Windows</center>
 * [批量重命名.py][批量重命名.py]
 
 ### <center>给个五星好评吧~</center>
