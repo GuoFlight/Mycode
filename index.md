@@ -4,7 +4,7 @@
 
 
 ## <center>Linux</center>
-#### 软件安装脚本
+#### 软件安装代码
 * [Compose_install][Compose_install]
 * [Docker_install][Docker_install]
 * [MySQL_install][MySQL_install]
@@ -12,6 +12,7 @@
 * [pip_install][pip_install]
 * [get-pip.py][get-pip.py]
 * [privoxy-3.0.28][privoxy-3.0.28]
+* [shadowsocks_client_install.py][shadowsocks_client_install.py]
 
 #### 其他Linux脚本
 
@@ -45,6 +46,7 @@
 [pip_install]:https://GuoFlight.Github.io/Mycode/Linux/software_install/pip_install.sh
 [get-pip.py]:https://GuoFlight.Github.io/Mycode/Linux/software_install/get-pip.py
 [privoxy-3.0.28]:https://GuoFlight.Github.io/Mycode/Linux/software_install/privoxy-3.0.28-stable-src.tar.gz
+[shadowsocks_client_install.py]:https://GuoFlight.Github.io/Mycode/Linux/software_install/shadowsocks_client_install.py
 [.bashrc]:https://GuoFlight.Github.io/Mycode/Linux/.bashrc
 [.vimrc]:https://GuoFlight.Github.io/Mycode/Linux/.vimrc
 [repos.py]:https://GuoFlight.Github.io/Mycode/Linux/repos.py
