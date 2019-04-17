@@ -11,6 +11,7 @@
 * [Python3_install][Python3_install]
 * [pip_install][pip_install]
 * [get-pip.py][get-pip.py]
+* [privoxy-3.0.28][privoxy-3.0.28]
 
 #### 其他Linux脚本
 
@@ -43,6 +44,7 @@
 [Python3_install]:https://GuoFlight.Github.io/Mycode/Linux/software_install/Python3_install.sh
 [pip_install]:https://GuoFlight.Github.io/Mycode/Linux/software_install/pip_install.sh
 [get-pip.py]:https://GuoFlight.Github.io/Mycode/Linux/software_install/get-pip.py
+[privoxy-3.0.28]:https://GuoFlight.Github.io/Mycode/Linux/software_install/privoxy-3.0.28-stable-src.tar.gz
 [.bashrc]:https://GuoFlight.Github.io/Mycode/Linux/.bashrc
 [.vimrc]:https://GuoFlight.Github.io/Mycode/Linux/.vimrc
 [repos.py]:https://GuoFlight.Github.io/Mycode/Linux/repos.py
