@@ -10,6 +10,7 @@
 * [MySQL_install][MySQL_install]
 * [Python3_install][Python3_install]
 * [pip_install][pip_install]
+* [get-pip.py][get-pip.py]
 
 #### 其他Linux脚本
 
@@ -41,6 +42,7 @@
 [MySQL_install]:https://GuoFlight.Github.io/Mycode/Linux/software_install/MySQL_install.sh
 [Python3_install]:https://GuoFlight.Github.io/Mycode/Linux/software_install/Python3_install.sh
 [pip_install]:https://GuoFlight.Github.io/Mycode/Linux/software_install/pip_install.sh
+[get-pip.py]:https://GuoFlight.Github.io/Mycode/Linux/software_install/get-pip.py
 [.bashrc]:https://GuoFlight.Github.io/Mycode/Linux/.bashrc
 [.vimrc]:https://GuoFlight.Github.io/Mycode/Linux/.vimrc
 [repos.py]:https://GuoFlight.Github.io/Mycode/Linux/repos.py
