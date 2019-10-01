@@ -1,0 +1,57 @@
+#!/bin/bash
+#脚本作用:Linux的回收站
+#版本:v1.1	支持添加多个文件,可以使用通配符
+#作者:郭老师
+#blog: https://blog.csdn.net/NetRookieX
+
+garbage_dir="/root/garbage"
+
+#创建垃圾桶
+mkdir -p $garbage_dir
+
+
+#函数作用:得到新文件名
+#输入:旧文件名
+#输出:新文件名
+get_new_filename(){
+    #文件名与删除时间的分隔符
+    sep_char="_"
+
+    
+	#分离出文件名
+    old_filename=`echo "$1" | awk -F/ '{print $NF}'`
+
+    len_old_filename=${#old_filename} 
+    let temp=len_old_filename-1
+
+    #若参数为目录,则去除最后的/ 
+    if [ ${old_filename:temp} = "/" ]; then
+        old_filename=${old_filename:0:$temp}
+    fi  
+
+    #得到新文件名
+    cur_time=`date "+%Y%m%d%H%M%S"`
+    new_filename="$old_filename$sep_char$cur_time"
+        
+    echo $new_filename
+    return 0
+}
+
+#函数作用:将文件移动到gargabe目录中
+#输入:文件名
+mv_to_garbage(){
+	#若文件不存在
+	if [ ! -e $1 ]; then
+    	echo "删除失败 ‘$1’: No such file or directory"
+    	exit 1
+	fi
+
+	new_filename=`get_new_filename $1`
+
+	mv $1 $garbage_dir/$new_filename
+}
+
+for i in $@
+do
+	mv_to_garbage $i
+done

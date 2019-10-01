@@ -22,6 +22,7 @@
 * [ssh_port_change.py][ssh_port_change.py](一键更换SSH端口)
 * [strutf8_to_str.py][strutf8_to_str.py](%E4%BA%A7%E5%93%814类型string转换为一般string)
 * [软链接.txt][软链接.txt](常用Linux软连接)
+* [Linux回收站][Linux回收站](非图形化Linux的回收站)
 
 
 ## <center>Windows</center>
@@ -58,10 +59,12 @@
 [strutf8_to_str.py]:https://GuoFlight.Github.io/Mycode/Linux/strutf8_to_str.py
 [repos.py]:https://GuoFlight.Github.io/Mycode/Linux/repos.py
 [软链接.txt]:https://GuoFlight.Github.io/Mycode/Linux/软链接.txt
+[Linux回收站]:https://GuoFlight.Github.io/Mycode/Linux/del
 [批量重命名.py]:https://GuoFlight.Github.io/Mycode/Windows/批量重命名.py
 [红包码]:http://ww1.sinaimg.cn/large/006vXjpTgy1g1617o75swj30fs0nodhv.jpg
 [付款码]:http://ww1.sinaimg.cn/large/006vXjpTgy1g161aqrynlj30u01ao45m.jpg
 [2345]:https://www.2345.com/?k12342565
+
 
 <!-- JAVA -->
 [org.apache.poi.jar]:https://GuoFlight.Github.io/Mycode/JAVA/jar/org.apache.poi.jar
