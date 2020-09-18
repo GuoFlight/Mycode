@@ -10,11 +10,11 @@ import json
 import os
 
 workspace = '/Users/didi/Desktop/test-dir'      #Projects要下载到这个目录下
-token = "jaQg1qAxpFdYUj7ByXfC"
+token = "xxxxxxxxxxxx"
 group_name = "OP"               #想要拉取的Group名，区分大小写
 
-api_groups = 'http://git.xiaojukeji.com/api/v4/groups?private_token={token}'
-api_projects = 'http://git.xiaojukeji.com/api/v4/groups/{group_id}/projects?private_token={token}'
+api_groups = 'http://xxx.com/api/v4/groups?private_token={token}'
+api_projects = 'http://xxx.com/api/v4/groups/{group_id}/projects?private_token={token}'
 api_groups = api_groups.replace('{token}',token)
 api_projects= api_projects.replace('{token}',token)
 
