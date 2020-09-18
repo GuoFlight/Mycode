@@ -1,0 +1,31 @@
+############      设置代理    ############
+function proxy_on(){
+    export http_proxy=http://127.0.0.1:1087
+    export https_proxy=http://127.0.0.1:1087
+    echo -e "已开启代理"
+}
+function proxy_off(){
+    unset http_proxy
+    unset https_proxy
+    echo -e "已关闭代理"
+}
+############     tree命令      ############
+function tree() {
+    if [ $# -gt 0 ]; then
+        echo -e "不能使用参数\n只能查找当前目录路径树";
+        return 1
+    fi
+    find . -name "*" -print | sed -e 's;[^/]*/;|____;g;s;____|; |;g';
+}
+############   用户脚本的路径    ############
+PATH=$PATH:/Users/didi/Desktop/Myfiles/else
+############       其他        ############
+alias ll='ls -all'
+############    shell主题      ############
+export CLICOLOR=1
+export LSCOLORS=GxFxCxDxBxegedabagaced
+export PS1='\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$'
+
+alias grep='grep --color=auto'
+alias egrep='egrep --color=auto'
+
