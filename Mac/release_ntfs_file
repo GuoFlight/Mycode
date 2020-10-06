@@ -1,0 +1,13 @@
+#!/bin/bash
+
+#脚本作用：解决"项目已被macOS使用，不能打开"的问题
+#作者：郭老师
+#版本：v1.0
+
+for i in `echo $*`; do
+	if [ -e $i ]; then
+		xattr -d com.apple.FinderInfo $i;
+	else
+		echo 错误: $i 不存在;
+	fi
+done

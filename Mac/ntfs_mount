@@ -1,0 +1,32 @@
+#!/bin/bash
+#脚本作用：在MAC中挂载可读可写的NTFS存储设备
+#作者：郭飞
+#版本：v1.1
+#最后修改日期：2020-10-06
+#建议:将脚本存放到/usr/local/bin中可作为命令执行
+
+#得到所有的外部存储
+i=0
+diskutil list | grep -E "Microsoft Basic Data|Windows_NTFS" | while read line; do
+	let i=$i+1
+	line=${line:3}		#去除前面的编号
+	echo $i: $line
+done	
+
+read -p "请选择你要挂载的NTFS设备：" num
+
+#得到磁盘名称
+myNtfs=`diskutil list | grep -E "Microsoft Basic Data|Windows_NTFS" | awk -v n=$num '$NR==$n{print $NF}'`
+
+#创建挂载点
+mkdir -p ~/Desktop/NTFS
+
+#卸载后重新挂载
+sudo umount /dev/$myNtfs && \
+sudo mount_ntfs -o rw,nobrowse /dev/$myNtfs ~/Desktop/NTFS/
+
+if [ $? == 0 ]; then
+	echo "挂载成功！"
+else
+	echo "挂载失败！"
+fi
