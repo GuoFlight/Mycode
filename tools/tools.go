@@ -27,6 +27,19 @@ func ReverseDomain(domain string) string {
 	return domainReverse
 }
 
+//字符串去重
+func RemoveRepeat(str []string) []string {
+	tmp := make(map[string]bool)
+	for _, v := range str {
+		tmp[v] = true
+	}
+	var ret []string
+	for i, _ := range tmp {
+		ret = append(ret, i)
+	}
+	return ret
+}
+
 //函数作用：获取指定用户的uid和gid
 //说明：无法使用os/user包来获取sso认证的用户信息
 //适用平台：Linux、Mac
