@@ -151,3 +151,12 @@ func StringToUnicode(strOrigin string) (string, error) {
 	return str, nil
 }
 
+//函数作用：检查字符串中是否含有中文
+func ContainChinese(str string)bool{
+	for _, v := range str {
+		if unicode.Is(unicode.Han, v) {
+			return true
+		}
+	}
+	return false
+}
