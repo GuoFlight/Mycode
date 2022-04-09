@@ -1,1 +1,0 @@
-ln /etc/sysconfig/network-scripts/ifcfg-ens33 ens33
