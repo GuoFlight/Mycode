@@ -1,0 +1,42 @@
+#!/bin/bash
+
+#################################
+# 脚本作用：ssh登录机器
+# 作者：郭飞
+# 版本：v1.0.0 
+# 最近一次更新时间：2022-04-09
+#################################
+
+hosts=(\
+	"Test2_CentOS7 root 172.16.1.128"\
+	"Test3_CentOS7 root 172.16.1.129"\
+	"Test4_CentOS7 root 172.16.1.130"\
+)
+
+#获取用户想登录的机器
+for((i=0;i<"${#hosts[*]}";i++)); do
+	#得到配置名称
+	name=`echo "${hosts[$i]}" | awk '{print $1}'`
+	echo "$i: $name"
+done
+read -p "请选择要登录的机器: " num
+if echo "$num" | grep -q '[^0-9]' || [ "$num" = "" ]; then
+	echo "ERROR: 请输入数字!"
+	exit 1
+fi
+if [ "$num" -lt 0 ] || [ "$num" -ge "${#hosts[*]}" ];then
+	echo "ERROR: 请输出正确的编号"
+	exit 1
+fi
+user=`echo "${hosts[$num]}" | awk '{print $2}'`
+host=`echo "${hosts[$num]}" | awk '{print $3}'`
+
+#登录机器
+ssh "$user"@"$host"
+
+
+
+
+
+
+
