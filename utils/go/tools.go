@@ -7,6 +7,16 @@ import (
 	"strings"
 )
 
+// 函数作用：判断字符串是否在Slice中
+func IsInSliceStr(str string, strs []string) bool {
+	for _, item := range strs {
+		if str == item {
+			return true
+		}
+	}
+	return false
+}
+
 //函数作用：切片反转
 func ReverseSlice(s []int) []int {
 	for i, j := 0, len(s)-1; i < j; i, j = i+1, j-1 {
