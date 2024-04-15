@@ -204,6 +204,15 @@ func LocalIP() (net.IP, error) {
 	return nil, fmt.Errorf("cannot find local IP address")
 }
 
+// 函数作用：判断某个端口是否被监听
+func IsPortListening(port int) bool {
+	ln, err := net.Listen("tcp", ":"+strconv.Itoa(port))
+	if err != nil {
+		return true
+	}
+	defer ln.Close()
+	return false
+}
 
 
 
