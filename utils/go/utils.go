@@ -234,3 +234,15 @@ func ContainChinese(str string)bool{
 	}
 	return false
 }
+
+// 函数作用：安全地递归删除文件/目录
+func DelFile(path string) error {
+	pathAbs, err := filepath.Abs(path)
+	if err != nil {
+		return err
+	}
+	if pathAbs == "/" {
+		return errors.New("无法删除/")
+	}
+	return os.RemoveAll(pathAbs)
+}
