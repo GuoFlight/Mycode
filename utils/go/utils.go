@@ -5,6 +5,7 @@ import (
 	"regexp"
 	"strconv"
 	"strings"
+    "crypto/rand"
 )
 
 /////////////////////////////////////////////// 切片 ///////////////////////////////////////////////
@@ -245,4 +246,21 @@ func DelFile(path string) error {
 		return errors.New("无法删除/")
 	}
 	return os.RemoveAll(pathAbs)
+}
+
+// 生成指定位数的随机大写英文字母串
+func randStrCapital(strSize int) (string, error) {
+	// 定义字母表
+	dictionary := "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	// 生成一堆随机数
+	var bytes = make([]byte, strSize)
+	_, err := rand.Read(bytes)
+	if err != nil {
+		return "", err
+	}
+	// 将随机数变成字母
+	for k, v := range bytes {
+		bytes[k] = dictionary[v%byte(len(dictionary))]
+	}
+	return string(bytes), nil
 }
