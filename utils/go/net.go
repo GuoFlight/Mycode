@@ -100,3 +100,27 @@ func SortIps(ips []string) []string {
 	})
 	return ips
 }
+
+// IsIpInCIDRs 判断某个ip是否属于指定网段中(满足其一即可)
+func IsIpInCIDRs(ip string, cidrs []string) (bool, error) {
+	ipObj := net.ParseIP(ip)
+	if ipObj == nil {
+		return false, fmt.Errorf("ip异常: %s", ip)
+	}
+	for _, cidr := range cidrs {
+		_, ipNet, err := net.ParseCIDR(cidr)
+		if err != nil {
+			return false, fmt.Errorf("网段解析失败: %s", err)
+		}
+		if ipNet.Contains(ipObj) {
+			return true, nil
+		}
+	}
+	return false, nil
+}
+// GetIpsFromStr 从文本中获取所有ip
+func GetIpsFromStr(text string) []string {
+	ipRegex := `(((2[0-5]{2}\.)|(1\d{2}\.)|(\d{1,2}\.)){3}((1\d{2})|(2[0-5]{2})|(\d{1,2})))`
+	re := regexp.MustCompile(ipRegex)
+	return re.FindAllString(text, -1)
+}

@@ -17,3 +17,27 @@ func ReverseSlice[T any](s []T) []T {
 	}
 	return s
 }
+
+// HasSameItems 判断两个 slice 是否拥有相同的元素（顺序无关）
+func HasSameItems[T comparable](a, b []T) bool {
+	// 创建一个 map 来统计元素出现次数
+	mapA := make(map[T]struct{}, len(a))
+	mapB := make(map[T]struct{}, len(b))
+	for _, v := range a {
+		mapA[v] = struct{}{}
+	}
+	for _, v := range b {
+		mapB[v] = struct{}{}
+	}
+	if len(mapA) != len(mapB) {
+		return false
+	}
+
+	// 检查第二个 slice 的元素
+	for kA := range mapA {
+		if _, ok := mapB[kA]; !ok {
+			return false
+		}
+	}
+	return true
+}
