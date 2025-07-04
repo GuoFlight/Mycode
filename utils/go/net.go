@@ -124,3 +124,57 @@ func GetIpsFromStr(text string) []string {
 	re := regexp.MustCompile(ipRegex)
 	return re.FindAllString(text, -1)
 }
+
+// CheckConnTcp 检查TCP是否能连接
+func CheckConnTcp(host string, port int, timeout time.Duration) bool {
+	target := fmt.Sprintf("%s:%d", host, port)
+	conn, err := net.DialTimeout("tcp", target, timeout)
+	if err != nil {
+		return false
+	}
+	_ = conn.Close()
+	return true
+}
+
+// CheckConnTcpMulti 高并发探测TCP是否能连接
+func CheckConnTcpMulti(hosts []string, ports []int, timeout time.Duration) bool {
+	ctx, cancel := context.WithCancel(context.Background()) // 用于取消多余的goroutine
+	defer cancel()
+	results := make(chan bool) // 用于保存所有goroutine的结果
+	var wg sync.WaitGroup      // 等待所有goroutine执行完成
+
+	for _, host := range hosts {
+		for _, port := range ports {
+			wg.Add(1)
+			go func(h string, p int) {
+				defer wg.Done()
+				select {
+				case <-ctx.Done():
+					return // 如果已经取消，提前退出，避免无效探测
+				default:
+					ok := CheckConnTcp(h, p, timeout)
+					// 防止无缓冲区channel被关闭时无法写入
+					select {
+					case results <- ok: // 等待写入(因为无缓冲区，所以可能要等待)
+					case <-ctx.Done(): // 也有可能直接退出
+					}
+				}
+			}(host, port)
+		}
+	}
+
+	// 如果执行完了，就关闭channel
+	go func() {
+		wg.Wait()
+		close(results)
+	}()
+
+	// 消费结果
+	for result := range results {
+		if !result { // 只要遇到false就立即返回
+			cancel()
+			return false
+		}
+	}
+	return true
+}
