@@ -137,17 +137,20 @@ func CheckConnTcp(host string, port int, timeout time.Duration) bool {
 }
 
 // CheckConnTcpMulti 高并发探测TCP是否能连接
-func CheckConnTcpMulti(hosts []string, ports []int, timeout time.Duration) bool {
+func CheckConnTcpMulti(hosts []string, ports []int, timeout time.Duration, maxConcurrency int) bool {
 	ctx, cancel := context.WithCancel(context.Background()) // 用于取消多余的goroutine
 	defer cancel()
 	results := make(chan bool) // 用于保存所有goroutine的结果
 	var wg sync.WaitGroup      // 等待所有goroutine执行完成
+	chanConcurrencyLimit := make(chan struct{}, maxConcurrency)
 
 	for _, host := range hosts {
 		for _, port := range ports {
 			wg.Add(1)
 			go func(h string, p int) {
 				defer wg.Done()
+				chanConcurrencyLimit <- struct{}{}
+				defer func() { <-chanConcurrencyLimit }()
 				select {
 				case <-ctx.Done():
 					return // 如果已经取消，提前退出，避免无效探测
