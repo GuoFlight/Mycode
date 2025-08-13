@@ -41,3 +41,16 @@ func HasSameItems[T comparable](a, b []T) bool {
 	}
 	return true
 }
+
+// RemoveRepeat Slice去重
+func RemoveRepeat[T comparable](s []T) []T {
+	tmp := make(map[T]bool)
+	for _, v := range s {
+		tmp[v] = true
+	}
+	var ret []T
+	for i, _ := range tmp {
+		ret = append(ret, i)
+	}
+	return ret
+}
