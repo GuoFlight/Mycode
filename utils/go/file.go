@@ -55,3 +55,23 @@ func WalkFilesBySuffix(dir, suffix string) ([]os.FileInfo, error) {
 	}
 	return ret, nil
 }
+// WalkFiles 得到目录下的所有文件(不包括目录)
+func WalkFiles(dir string) ([]os.FileInfo, error) {
+	var ret []os.FileInfo
+	err := filepath.Walk(dir, func(path string, info os.FileInfo, err error) error {
+		if err != nil {
+			return err
+		}
+		if dir == path {
+			return nil
+		}
+		if !info.IsDir() {
+			ret = append(ret, info)
+		}
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
