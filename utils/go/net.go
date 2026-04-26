@@ -7,7 +7,7 @@ import (
 	"strconv"
 )
 
-// LocalIP 获取第一个非 loopback ip
+// (不建议使用了)LocalIP 获取第一个非 loopback ip
 func LocalIP() (net.IP, error) {
 	tables, err := net.Interfaces()
 	if err != nil {
@@ -31,7 +31,7 @@ func LocalIP() (net.IP, error) {
 	return nil, fmt.Errorf("cannot find local IP address")
 }
 
-// GetLocalIps 获取非环回 ip
+// GetLocalIps 获取所有非环回 ip
 func GetLocalIps() ([]net.IP, error) {
 	interfaces, err := net.Interfaces()
 	if err != nil {
@@ -54,6 +54,66 @@ func GetLocalIps() ([]net.IP, error) {
 		}
 	}
 	return ret, nil
+}
+
+// GetLocalIP 获取本机IP
+func GetLocalIP() (string, error) {
+	// 方法1：通过默认路由推断出口IP
+	conn, err := net.Dial("udp", "1.1.1.1:80")
+	if err == nil {
+		defer conn.Close()
+		localAddr := conn.LocalAddr()
+		if udpAddr, ok := localAddr.(*net.UDPAddr); ok {
+			if udpAddr.IP != nil {
+				// fmt.Println("[DEBUG] 通过udp请求路由得到本地ip") // debug
+				return udpAddr.IP.String(), nil
+			}
+		}
+	}
+
+	// 方法2：枚举网卡
+	interfaces, err := net.Interfaces()
+	if err == nil {
+		for _, iface := range interfaces {
+			// 跳过down接口和loopback
+			if (iface.Flags&net.FlagUp) == 0 ||
+				(iface.Flags&net.FlagLoopback) != 0 {
+				continue
+			}
+			// 得到网卡的所有ip
+			addrs, err := iface.Addrs()
+			if err != nil {
+				continue
+			}
+			// 遍历所有ip
+			for _, addr := range addrs {
+				var ip net.IP
+				switch v := addr.(type) {
+				case *net.IPNet:
+					ip = v.IP
+				case *net.IPAddr:
+					ip = v.IP
+				}
+
+				if ip == nil {
+					continue
+				}
+				// 只要IPv4
+				ip = ip.To4()
+				if ip == nil {
+					continue
+				}
+				// 排除127.x.x.x
+				if ip.IsLoopback() {
+					continue
+				}
+				//fmt.Println("[DEBUG] 通过枚举网卡得到ip") // debug
+				return ip.String(), nil
+			}
+		}
+	}
+
+	return "", errors.New("未获取到ip")
 }
 
 // IsPortListening 函数作用：判断某个端口是否被监听
