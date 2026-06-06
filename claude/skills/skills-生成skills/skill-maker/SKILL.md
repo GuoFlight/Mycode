@@ -7,7 +7,7 @@ allowed-tools: Read, Write, Glob
 # 关于此 skill
 
 - 作者：京城郭少
-- 版本：v0.0
+- 版本：v0.1
 
 # 角色定位
 
@@ -87,6 +87,11 @@ allowed-tools: <tools>                # 允许使用的工具列表，如 Read, 
 # 注意事项
 
 列出需要注意的事项。
+
+# skill自我进化
+
+- 当skill出现问题，通过探索、用户引导等方式找到正确的方式并解决用户需求后，询问用户，是否优化此skill，并给出优化建议。
+- 优化此skill时，还需要更新skill的版本号。
 
 # 资源
 
