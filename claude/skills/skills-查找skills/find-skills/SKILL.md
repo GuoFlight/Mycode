@@ -7,7 +7,7 @@ allowed-tools: Bash, WebFetch
 # 关于此 skill
 
 - 作者:京城郭少
-- 版本:v0.1
+- 版本:v0.2
 
 # 角色定位
 
@@ -20,6 +20,7 @@ allowed-tools: Bash, WebFetch
 # 核心原则
 
 - **先看排行榜,再跑搜索**:热门 skill 通常已覆盖常见需求,优先查 skills.sh 排行榜可省去大量试错。
+- **多渠道交叉检索**:除 `npx skills find` 外,还可用 awesomeskill.ai、skillsmp.com 两个 REST API 检索,不同源收录范围不同,交叉查可减少遗漏。
 - **质量优先,拒绝盲推**:绝不能仅凭搜索结果就推荐 skill,必须核验安装量、来源信誉、GitHub star 数。
 - **来源可信度分级**:官方来源(`vercel-labs`、`anthropics`、`microsoft`)优先于不知名作者。
 - **关键词要具体**:"react testing" 比单独的 "testing" 更有效;搜不到时尝试同义词。
@@ -69,6 +70,49 @@ npx skills find [关键词]
 - 用户问"怎么让我的 React 应用更快?" → `npx skills find react performance`
 - 用户问"能帮我审查 PR 吗?" → `npx skills find pr review`
 - 用户问"我要生成一份 changelog" → `npx skills find changelog`
+
+## 第三步(补充):其他检索渠道(REST API)
+
+`npx skills find` 之外,还有两个独立的 skill 目录站点提供 REST 搜索 API,收录范围与 skills.sh 不完全重合,建议交叉检索。用 `curl` 直接调用即可(本机若有证书拦截,加 `-k`)。
+
+### 渠道 A:awesomeskill.ai
+
+```bash
+curl -s "https://awesomeskill.ai/api/agent/skills/search?q=<关键词>&limit=10&sort=stars" -H "Accept: application/json"
+```
+
+参数:
+- `q` —— 关键词(匹配 skill 名称与描述)
+- `limit` —— 返回条数,默认 10,最大 50
+- `sort` —— 排序,`stars`(按 GitHub star)或 `latest`(最新),默认 `latest`
+
+返回字段:`name`、`slug`、`description`、`sourceUrl`(GitHub 源码地址)、`githubRepo`、`githubStars`、`categories`、`tags`。
+
+> ⚠️ 注意:返回的 `url` 字段里域名是占位符 `localhost:9876`,不可直接用。要给用户详情链接时,用 `sourceUrl`(GitHub 地址),或把 `url` 里的 `https://localhost:9876` 替换成 `https://awesomeskill.ai`。
+
+### 渠道 B:skillsmp.com
+
+```bash
+curl -s "https://skillsmp.com/api/v1/skills/search?q=<关键词>&limit=20&sortBy=stars" -H "Accept: application/json"
+```
+
+参数:
+- `q` —— 关键词(**必填**,最长 200 字符)
+- `limit` —— 每页条数,默认 20,最大 50;`page` —— 页码,默认 1
+- `sortBy` —— 排序,`stars`(默认)或 `recent`
+- `category` —— 分类 slug 过滤(如 `devops`、`data-ai`)
+- `occupation` —— 职业 slug 过滤(如 `software-developers`)
+- `language` —— 内容语言 ISO 码过滤(如 `en`、`zh`、`ja`)
+
+返回字段:`name`、`author`、`description`、`githubUrl`、`skillUrl`(详情页)、`stars`、`contentLanguage`、`updatedAt`。响应含分页信息(`total`、`totalPages`、`hasNext`),需要更多结果时按 `hasNext` 翻页。
+
+> 匿名调用限 50 次/天,申请免费 API key(https://skillsmp.com/developers)后为 500 次/天。
+
+### 渠道选择建议
+
+- **quick 查询**:优先 `npx skills find`,结果自带安装量,最直观。
+- **求全 / CLI 搜不到**:再用 awesomeskill.ai + skillsmp.com 交叉补充。skillsmp.com 支持分类/职业/语言过滤,适合精准定位;awesomeskill.ai 支持按 star 排序,适合找高质量项目。
+- 三个渠道的 skill 大量来自同一批 GitHub 仓库(如 `elastic/agent-skills`),交叉出现即为强信号,可优先信任。
 
 ## 第四步:推荐前核验质量
 
@@ -162,4 +206,6 @@ npx skills init my-xyz-skill
 # 资源
 
 - Skills 生态官网与排行榜: https://skills.sh/
-- 热门 skill 来源: `vercel-labs/agent-skills`、`anthropics/skills`、`ComposioHQ/awesome-claude-skills`
+- awesomeskill.ai 检索 API: `https://awesomeskill.ai/api/agent/skills/search?q=<kw>&sort=stars`
+- skillsmp.com 检索 API: `https://skillsmp.com/api/v1/skills/search?q=<kw>&sortBy=stars`(开发者门户 https://skillsmp.com/developers)
+- 热门 skill 来源: `vercel-labs/agent-skills`、`anthropics/skills`、`ComposioHQ/awesome-claude-skills`、`elastic/agent-skills`
