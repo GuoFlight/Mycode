@@ -1,0 +1,16 @@
+# AI
+.claude
+# IDE
+.idea
+.vscode
+.DS_Store
+# Go
+vendor
+main
+# Python
+venv
+# 前端
+node_modules
+dist
+# 通用
+logs
